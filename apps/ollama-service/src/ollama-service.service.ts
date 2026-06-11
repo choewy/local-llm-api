@@ -95,7 +95,9 @@ export class OllamaServiceService implements OnModuleInit {
       throw new RpcException('대화가 불가능한 방입니다.');
     }
 
-    if (room.status === OllamaChatRoomStatus.Generating) {
+    const result = await this.roomRepository.update({ id: room.id, status: OllamaChatRoomStatus.Idle }, { status: OllamaChatRoomStatus.Generating });
+
+    if (result.affected !== 1) {
       throw new RpcException('답변을 생성중입니다.');
     }
 
