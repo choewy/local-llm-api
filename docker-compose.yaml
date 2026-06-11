@@ -1,0 +1,15 @@
+name: local-llm
+
+services:
+  ollama:
+    image: ollama/ollama:0.30.7
+    container_name: ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ${HOME}/.ollama:/root/.ollama
+    restart: unless-stopped
+
+networks:
+  default:
+    name: local-llm
