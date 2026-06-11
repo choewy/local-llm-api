@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
 import { OllamaTopic } from '@libs/common';
@@ -12,8 +12,23 @@ export class OllamaController {
     private readonly client: ClientProxy,
   ) {}
 
-  @Post('chat')
-  chat(@Body() body: OllamaChatRequestDTO) {
-    return this.client.send(OllamaTopic.Chat, body);
+  @Get('rooms')
+  getRooms() {
+    return this.client.send(OllamaTopic.GetRooms, {});
+  }
+
+  @Post('rooms')
+  createRoom() {
+    return this.client.send(OllamaTopic.CreateRoom, {});
+  }
+
+  @Get('rooms/:roomId')
+  getRoomChats(@Param('roomId', new ParseUUIDPipe({ version: '4' })) roomId: string) {
+    return this.client.send(OllamaTopic.GetRoomChats, { roomId });
+  }
+
+  @Post('rooms/:roomId/chat')
+  chat(@Param('roomId', new ParseUUIDPipe({ version: '4' })) roomId: string, @Body() body: OllamaChatRequestDTO) {
+    return this.client.send(OllamaTopic.Chat, { roomId, ...body });
   }
 }
