@@ -9,19 +9,26 @@
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "dev": "concurrently -c auto \"pnpm dev:api-gateway\" \"pnpm dev:openai-service\"",
+    "dev": "concurrently -c auto \"pnpm dev:api-gateway\" \"pnpm dev:ollama-service\"",
     "dev:api-gateway": "nest start api-gateway --watch",
-    "dev:openai-service": "nest start openai-service --watch"
+    "dev:ollama-service": "nest start ollama-service --watch"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
     "@nestjs/microservices": "^11.1.26",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.4.4",
+    "@nestjs/typeorm": "^11.0.1",
     "axios": "^1.17.0",
+    "nestjs-zod": "^5.4.0",
     "openai": "^6.42.0",
+    "pg": "^8.21.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^1.0.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
